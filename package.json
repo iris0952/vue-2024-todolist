@@ -9,10 +9,11 @@
     "preview": "vite preview",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
     "format": "prettier --write src/",
-    "deploy": "vite build && gh-pages -d dist"
+    "deploy": "pnpm run build && gh-pages -d dist"
   },
   "dependencies": {
     "axios": "^1.7.7",
+    "gh-pages": "^6.1.1",
     "pinia": "^2.2.2",
     "sweetalert2": "^11.13.3",
     "vue": "^3.4.29",
@@ -24,8 +25,9 @@
     "@vue/eslint-config-prettier": "^9.0.0",
     "eslint": "^8.57.0",
     "eslint-plugin-vue": "^9.23.0",
-    "gh-pages": "^6.1.1",
+    "node-sass": "^9.0.0",
     "prettier": "^3.2.5",
+    "sass-loader": "^16.0.1",
     "vite": "^5.3.1",
     "vite-plugin-vue-devtools": "^7.3.1"
   }
