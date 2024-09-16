@@ -19,10 +19,10 @@ const activeTab = ref({
 
 /**
  * 切換分頁
- * @param {'all' | 'todo' | 'done'} tab 
+ * @param {'all' | 'todo' | 'done'} tab
  */
 const switchTab = (tab) => {
-  Object.keys(activeTab.value).forEach(key => {
+  Object.keys(activeTab.value).forEach((key) => {
     activeTab.value[key] = key === tab ? 'active' : ''
   })
   currentTab.value = tab
@@ -32,16 +32,16 @@ const switchTab = (tab) => {
 const todos = ref([])
 const filteredTodos = computed(() => {
   if (currentTab.value === 'todo') {
-    return todos.value.filter(todo => todo.status === false)
+    return todos.value.filter((todo) => todo.status === false)
   } else if (currentTab.value === 'done') {
-    return todos.value.filter(todo => todo.status === true)
+    return todos.value.filter((todo) => todo.status === true)
   } else {
     return todos.value
   }
 })
 // 計算待完成數量
 const todoCount = computed(() => {
-  return todos.value.filter(todo => !todo.status).length
+  return todos.value.filter((todo) => !todo.status).length
 })
 
 // 取得 todos
@@ -170,25 +170,33 @@ onMounted(async () => {
         <div class="todoList_list">
           <ul class="todoList_tab">
             <li><a href="#" :class="activeTab.all" @click.prevent="switchTab('all')">全部</a></li>
-            <li><a href="#" :class="activeTab.todo" @click.prevent="switchTab('todo')">待完成</a></li>
-            <li><a href="#" :class="activeTab.done" @click.prevent="switchTab('done')">已完成</a></li>
+            <li>
+              <a href="#" :class="activeTab.todo" @click.prevent="switchTab('todo')">待完成</a>
+            </li>
+            <li>
+              <a href="#" :class="activeTab.done" @click.prevent="switchTab('done')">已完成</a>
+            </li>
           </ul>
           <div class="todoList_items">
             <p v-if="todos.length === 0">目前尚無待辦事項</p>
             <ul class="todoList_item">
               <li v-for="todo in filteredTodos" :key="todo.id">
                 <label class="todoList_label" v-if="edittingTodo && edittingTodo.id === todo.id">
-                  <input 
-                    class="todoList_input_edit"
-                    type="text"
-                    v-model="edittingContent"
-                  />
+                  <input class="todoList_input_edit" type="text" v-model="edittingContent" />
                 </label>
                 <label class="todoList_label" v-else>
-                  <input class="todoList_input" type="checkbox" v-model="todo.status" @change="toggleTodo(todo)"/>
+                  <input
+                    class="todoList_input"
+                    type="checkbox"
+                    v-model="todo.status"
+                    @change="toggleTodo(todo)"
+                  />
                   <span>{{ todo.content }}</span>
                 </label>
-                <div class="todo_btn_group edit_btn_group" v-if="edittingTodo && edittingTodo.id === todo.id">
+                <div
+                  class="todo_btn_group edit_btn_group"
+                  v-if="edittingTodo && edittingTodo.id === todo.id"
+                >
                   <a href="#" @click.prevent="saveEdit(todo)">
                     <i class="fa-solid fa-circle-check fa-lg"></i>
                   </a>
